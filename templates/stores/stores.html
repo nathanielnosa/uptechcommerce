@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load humanize %}
+<!-- title -->
+{% block title %}
+    Stores Page
+{% endblock title %}
+
+<!-- body -->
+{% block content %}
+    <section id="products" class="my-3 py-3">
+        <div class="intro text-center">
+            <h6 class="display-6">Our Products</h6>
+            <p class="lead">Lorem ipsum dolor sit amet.</p>
+        </div>
+        <div class="container">
+            <div class="row g-3">
+                {% if paginator %}
+                  {% for product in paginator %}
+                    <div class="col-md-3">
+                        <div class="card">
+                            <img src="{{product.image.url}}" style="height: 25vh;" alt="" class="img-fluid">
+                            <div class="card-body">
+                                <span class="badge bg-primary">In stock: <strong>{{product.stock}}</strong></span>
+                                <h3> &#8358; {{product.price |intcomma}} </h3>
+                                <p class="lead">{{product.description |truncatewords:8}}</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="{% url 'addtocart' product.id %}" class="btn btn-success">Add to cart</a>
+                                <a href="{% url 'store' product.id %}" class="btn btn-info">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                  {% endfor %}
+                {% else %}
+                    <p class="lead bg-danger">No products in the database yet</p>
+                {% endif %}
+                
+            </div>
+
+
+            <!-- pagination -->
+            <div class="row my-5">
+                <div class="col-md-5 mx-auto py-4">
+                    <ul class="pagination">
+
+                        {% if paginator.has_previous %}
+                            <li class="page-item"><a class="page-link" href="?page={{paginator.previous_page_number}}">Previous</a></li>
+                        {% else %}
+                            <li class="page-item" disabled><a class="page-link" >Previous</a></li>
+                        {% endif %}
+
+                        {% for i in paginator.paginator.page_range  %}
+                          {% if i == paginator.number %}
+                          <li class="page-item active"><a class="page-link" >{{i}}</a></li>
+                          {% else %}
+                          <li class="page-item"><a class="page-link" href="?page={{i}}" >{{i}}</a></li>
+                          {% endif %}
+                        {% endfor %}
+
+                        {% if paginator.has_next %}
+                            <li class="page-item"><a class="page-link" href="?page={{paginator.next_page_number}}">Next</a></li>
+                        {% else %}
+                            <li class="page-item" disabled><a class="page-link" >Next</a></li>
+                        {% endif %}                        
+                        
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+{% endblock content %}

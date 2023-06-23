@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Registration{% endblock title %}
+
+{% block content %}
+ <section id="register">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 mx-auto">
+                <div class="card">
+                    <div class="card-header bg-success text-white display-5 text-center">Register Here</div>
+                    <div class="card-body">
+                        <form action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {{form.as_p}}
+                            {{forms.error}}
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success">Register</button>
+                            </div>
+                            <p class="lead text-center"><a class="text-decoration-none text-dark" href="{% url 'login' %}">Already a user? Login</a></p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </section>
+{% endblock content %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+  User Dashboard
+{% endblock title %}
+
+{% block content %}
+
+<section id="dashboard">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 mx-auto">
+                {% if users %}
+                <div class="card">
+                    {% if users.profile_pix.url %}
+                      <div class="mx-auto">
+                        <img src="{{users.profile_pix.url}}" alt="" width="200" class="card-image rounded-circle">
+                      </div>
+                      {% else %}
+                      <img src="{% static 'image/avar.jpg' %}" alt="" class="card-image">
+                    {% endif %}
+                    <div class="card-body">
+                        <ul class="list-group">
+                            <li class="list-group-item">Full Name : <strong>{{users.fullname}}</strong></li>
+                            <li class="list-group-item">Username : <strong>{{users.username}}</strong></li>
+                            <li class="list-group-item">Email : <strong>{{users.email}}</strong></li>
+                            <li class="list-group-item">Address : <strong>{{users.address}}</strong></li>
+                            <li class="list-group-item bg-dark"><a href="{% url 'update' %}" class="text-decoration-none text-white">Update Profile</a></strong></li>
+                        </ul>
+                    </div>
+                </div>
+                {% else %}
+                  <p class="lead bg-danger text-white">No User Found</p>
+                {% endif %}
+                
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock content %}

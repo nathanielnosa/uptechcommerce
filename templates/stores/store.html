@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load humanize %}
+<!-- title -->
+{% block title %}
+    Store Page
+{% endblock title %}
+
+<!-- body -->
+{% block content %}
+    <section id="products" class="my-3 py-3">
+        <div class="intro text-center">
+            <h6 class="display-6">Our {{product.title|title}}</h6>
+            <p class="lead">Lorem ipsum dolor sit amet.</p>
+        </div>
+        <div class="container">
+            <div class="row g-3">
+                {% if product %}
+                    <div class="col-md-4">
+                        <div class="card p-2">
+                            <img src="{{product.image.url}}" style="height: 45vh;" alt="" class="img-fluid">
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card">
+                            <div class="card-header display-4">{{product.title}}</div>
+                            <div class="card-body">
+                                <span class="badge bg-primary">In stock: <strong>{{product.stock}}</strong></span>
+                            <p class="lead">{{product.description}}</p>
+                            <h3 class="display-6 fw-bold"> &#8358; {{product.price |intcomma}} </h3>
+                            <div class="d-grid">
+                                <a href="{% url 'addtocart' product.id %}" class="btn btn-success">Add to cart</a>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <p class="lead bg-danger">No products in the database yet</p>
+                {% endif %}
+                
+            </div>
+
+        </div>
+    </section>
+{% endblock content %}
